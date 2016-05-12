@@ -1,0 +1,782 @@
+<h2 id="getting-started">Getting started</h2>
+
+<p>To use Algolia Places, all you need is an <code>&lt;input&gt;</code> and some JavaScript code that will load<br />
+and use the places.js library.</p>
+
+<h3 id="cdn-script">CDN <code>&lt;script&gt;</code></h3>
+
+<p>Our JavaScript library is available on the <a href="http://www.jsdelivr.com/projects/places.js">jsDelivr CDN</a>.</p>
+
+<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/places.js/0/places.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>Here's a small example using it:</p>
+
+<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8</pre></td><td class="code"><pre><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"search"</span> <span class="na">id=</span><span class="s">"address-input"</span> <span class="na">placeholder=</span><span class="s">"Where are we going?"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/places.js/0/places.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+  <span class="kd">var</span> <span class="nx">placesAutocomplete</span> <span class="o">=</span> <span class="nx">places</span><span class="p">({</span>
+    <span class="na">container</span><span class="p">:</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'#address-input'</span><span class="p">)</span>
+  <span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<h3 id="using-npm">Using npm</h3>
+
+<p>Algolia Places is also available on <a href="https://www.npmjs.com/package/places.js">npm</a>.</p>
+
+<p>Install the module:</p>
+
+<div class="codehilite shell"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre>npm install places.js --save
+</pre></td></tr></tbody></table>
+</div>
+
+<p>Put an <code>&lt;input&gt;</code> in your html page:</p>
+
+<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"search"</span> <span class="na">id=</span><span class="s">"address-input"</span> <span class="na">placeholder=</span><span class="s">"Where are we going?"</span> <span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>Initialize the places.js library:</p>
+
+<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4</pre></td><td class="code"><pre><span class="kd">var</span> <span class="nx">places</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'places.js'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">placesAutocomplete</span> <span class="o">=</span> <span class="nx">places</span><span class="p">({</span>
+  <span class="na">container</span><span class="p">:</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'#address-input'</span><span class="p">)</span>
+<span class="p">});</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<h3 id="demo">Demo</h3>
+
+<p>As a result, you will get the Algolia Places autocompletion menu:</p>
+
+<p><input type="search" id="docs-getting-started-demo" class="form-control" placeholder="Where are we going?" /></p>
+
+<h2 id="api">API</h2>
+
+<h3 id="options">Options</h3>
+
+<p>Here are the options you can pass to the <code>places(options)</code> function.</p>
+
+<!-- Indentation is on purpose for <td>s, to allow HTML inside markdown -->
+<table class="api">
+  <thead><tr>
+    <th>Option</th>
+    <th>Description</th>
+  </tr></thead>
+  <tbody>
+    <tr>
+<td>
+        <div class="api-entry" id="api-options-container"><code>container</code></div>
+
+        <p>Type: <a href="https://www.w3.org/2003/01/dom2-javadoc/org/w3c/dom/html2/HTMLInputElement.html">HTMLInputElement</a></p>
+
+        <p>required: <strong>yes</strong></p>
+      </td>
+<td>
+        <p>Determines the <code>&lt;input&gt;</code> that will be used for the Algolia Places autocompletion menu.</p>
+
+        <p>You just need to pass a reference to an Element. Obtained via
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector">document.querySelector</a> for example.</p>
+      </td>
+    </tr>
+    <tr>
+<td>
+        <div class="api-entry" id="api-options-aroundLatLng"><code>aroundLatLng</code></div>
+
+        <p>Type: string</p>
+
+        <p>required: no</p>
+      </td>
+<td>
+        <p>Force to <em>first</em> search around a specific latitude longitude. The option value must be provided as a string:
+<code>latitude,longitude</code> like <code>12.232,23.1</code>.</p>
+
+        <p>The default is to search around the location of the user determined via his IP address (geoip).</p>
+      </td>
+    </tr>
+    <tr>
+<td>
+        <div class="api-entry" id="api-options-aroundLatLngViaIP"><code>aroundLatLngViaIP</code></div>
+
+        <p>Type: boolean</p>
+
+        <p>required: no</p>
+      </td>
+<td>
+        <p>Whether or not to <em>first</em> search around the geolocation of the user found via his IP address. This is <code>true</code> by
+default.</p>
+      </td>
+    </tr>
+    <tr>
+<td>
+        <div class="api-entry" id="api-options-aroundRadius"><code>aroundRadius</code></div>
+
+        <p>Type: number</p>
+
+        <p>required: no</p>
+      </td>
+<td>
+        <p>Radius in meters to search around the latitude longitutde. Otherwise a default radius is automatically computed
+given the area density.</p>
+      </td>
+    </tr>
+    <tr>
+<td>
+        <div class="api-entry" id="api-options-language"><code>language</code></div>
+
+        <p>Type: string</p>
+
+        <p>required: no</p>
+      </td>
+<td>
+        <p>Change the default language of the results.
+You can pass two letters country codes (<a href="https://en.wikipedia.org/wiki/ISO_3166-1#Officially_assigned_code_elements">ISO 639-1</a>).</p>
+
+        <p><strong>Default</strong>: Current user language obtained via <code>navigator.language</code> in the two letter form.
+Example: <code>en</code> when navigator.language is <code>en_US</code>.</p>
+      </td>
+    </tr>
+    <tr>
+<td>
+        <div class="api-entry" id="api-options-countries"><code>countries</code></div>
+
+        <p>Type: string[]</p>
+
+        <p>required: no</p>
+      </td>
+<td>
+        <p>Change the countries to search in. You must pass an array of two letters country codes
+(<a href="https://en.wikipedia.org/wiki/ISO_3166-1#Officially_assigned_code_elements">ISO 639-1</a>).</p>
+
+        <p><strong>Default</strong>: Search on the whole planet.</p>
+      </td>
+    </tr>
+    <tr>
+<td>
+        <div class="api-entry" id="api-options-templates"><code>templates</code></div>
+
+        <p>Type: Object</p>
+
+        <p>required: no</p>
+      </td>
+<td>
+        <p>Change the templates used in place.js.</p>
+
+        <p>Available templates:</p>
+
+        <ul>
+          <li>inputValue</li>
+          <li>dropdownSuggestion</li>
+        </ul>
+
+        <p>Each template is a function that will receive a <a href="#suggestion-object">suggestion object</a> and must return
+a <code>string</code>.</p>
+
+        <p><code>inputValue</code> must return a plain string as it's used to fill the <code>input.value</code>. <code>dropdownSuggestion</code> can
+return an HTML string to be displayed in the dropdown.</p>
+      </td>
+    </tr>
+    <tr>
+<td>
+        <div class="api-entry" id="api-options-type"><code>type</code></div>
+
+        <p>Type: string</p>
+
+        <p>required: no</p>
+      </td>
+<td>
+        <p>Change the type of results you want to search in.</p>
+
+        <p>Available types:</p>
+
+        <ul>
+          <li>city</li>
+          <li>country</li>
+          <li>address</li>
+        </ul>
+
+        <p><strong>Default</strong>: Search in all types.</p>
+      </td>
+    </tr>
+    <tr>
+<td>
+        <div class="api-entry" id="api-options-style"><code>style</code></div>
+
+        <p>Type: boolean</p>
+
+        <p>required: no</p>
+      </td>
+<td>
+        <p>Control whether the default styles should be used.</p>
+
+        <p><strong>Default</strong>: Styles are enabled.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Simple example providing only the required <code>container</code> parameter:</p>
+
+<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3</pre></td><td class="code"><pre><span class="kd">var</span> <span class="nx">placesAutocomplete</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">container</span><span class="p">:</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'#demo'</span><span class="p">)</span>
+<span class="p">};</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>Advanced example using all parameters:</p>
+
+<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6</pre></td><td class="code"><pre><span class="kd">var</span> <span class="nx">placesAutocomplete</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">container</span><span class="p">:</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'#demo'</span><span class="p">),</span>
+  <span class="na">language</span><span class="p">:</span> <span class="s1">'de'</span><span class="p">,</span> <span class="c1">// Receives results in German</span>
+  <span class="na">countries</span><span class="p">:</span> <span class="p">[</span><span class="s1">'us'</span><span class="p">,</span> <span class="s1">'ru'</span><span class="p">],</span> <span class="c1">// Search in the United States of America and in the Russian Federation</span>
+  <span class="na">type</span><span class="p">:</span> <span class="s1">'city'</span> <span class="c1">// Search only for cities names</span>
+<span class="p">};</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<h3 id="events">Events</h3>
+
+<p>The Algolia Places autocomplete exposes some events that you can register to:</p>
+
+<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5</pre></td><td class="code"><pre><span class="kd">var</span> <span class="nx">placesAutocomplete</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">container</span><span class="p">:</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'#demo'</span><span class="p">)</span>
+<span class="p">};</span>
+
+<span class="nx">placesAutocomplete</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'change'</span><span class="p">,</span> <span class="nx">e</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">suggestion</span><span class="p">));</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<table class="api">
+  <thead><tr>
+    <th>Event</th>
+    <th>Description</th>
+  </tr></thead>
+  <tbody>
+    <tr>
+<td>
+        <div class="api-entry" id="api-events-change"><code>change</code></div>
+
+        <p>Event data:</p>
+
+        <ul>
+          <li>suggestion <em>Type: <a href="#suggestion-object">suggestion</a></em></li>
+          <li>query <em>Type: string</em>,</li>
+          <li>suggestionIndex <em>Type: number</em></li>
+        </ul>
+      </td>
+<td>
+        <p>Fired when suggestion selected in the dropdown or hint was validated.</p>
+
+        <p>You can use this event to then populate another form, <a href="examples.html#complete-form">see the example</a>.</p>
+      </td>
+    </tr>
+    <tr>
+<td>
+        <div class="api-entry" id="api-events-suggestions"><code>suggestions</code></div>
+
+        <p>Event data:</p>
+
+        <ul>
+          <li>suggestions <em>Type: <a href="#suggestion-object">suggestion</a></em></li>
+          <li>query <em>Type: string</em></li>
+        </ul>
+      </td>
+<td>
+        <p>Fired when dropdown receives suggestions. You will receive the array of suggestions that are displayed.</p>
+
+        <p>You will also receive this event when no places were found.</p>
+
+        <p>You can use this event to display the suggestions on a map, see the <a href="examples.html#displaying-a-map">map example</a>.</p>
+      </td>
+    </tr>
+    <tr>
+<td>
+        <div class="api-entry" id="api-events-cursorchanged"><code>cursorchanged</code></div>
+
+        <p>Event data:</p>
+
+        <ul>
+          <li>suggestion <em>Type: <a href="#suggestion-object">suggestion</a></em></li>
+          <li>query <em>Type: string</em></li>
+          <li>suggestionIndex <em>Type: number</em></li>
+        </ul>
+      </td>
+<td>
+        <p>Fired when arrows keys are used to navigate suggestions.</p>
+
+        <p>You can use this event to highlight markers on a map, see the <a href="examples.html#displaying-a-map">map example</a>.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="suggestion-object">Suggestion object</h3>
+
+<p>All of the events will send suggestion objects with those properties:</p>
+
+<table class="api">
+  <thead><tr>
+    <th>Property</th>
+    <th>Description</th>
+  </tr></thead>
+  <tbody>
+    <tr>
+<td>
+        <div class="api-entry" id="api-suggestion-administrative"><code>administrative</code></div>
+
+        <p>Type: string</p>
+      </td>
+<td>
+        <p>Administrative region depending on the country.</p>
+
+        <p>Examples:</p>
+
+        <ul>
+          <li>Pays de la Loire</li>
+          <li>Texas</li>
+          <li>Catalunya</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+<td>
+        <div class="api-entry" id="api-suggestion-city"><code>city</code></div>
+
+        <p>Type: string</p>
+      </td>
+<td>
+        <p>City name.</p>
+      </td>
+    </tr>
+    <tr>
+<td>
+        <div class="api-entry" id="api-suggestion-country"><code>country</code></div>
+
+        <p>Type: string</p>
+      </td>
+<td>
+        <p>Country name.</p>
+      </td>
+    </tr>
+    <tr>
+<td>
+        <div class="api-entry" id="api-suggestion-countryCode"><code>countryCode</code></div>
+
+        <p>Type: string</p>
+      </td>
+<td>
+        <p>Two letters country code (<a href="https://en.wikipedia.org/wiki/ISO_3166-1#Officially_assigned_code_elements">ISO 639-1</a>).</p>
+      </td>
+    </tr>
+    <tr>
+<td>
+        <div class="api-entry" id="api-suggestion-type"><code>type</code></div>
+
+        <p>Type: string</p>
+      </td>
+<td>
+        <p>Type of the current suggestion, possible values: <code>country</code>, <code>city</code>, <code>address</code>.</p>
+      </td>
+    </tr>
+    <tr>
+<td>
+        <div class="api-entry" id="api-suggestion-latlng"><code>latlng</code></div>
+
+        <p>Type: Object</p>
+      </td>
+<td>
+        <p>Latitude and longitude of the place found. Shape: <code>{lat: 48.797885, lng: 2.337034}</code>.</p>
+      </td>
+    </tr>
+    <tr>
+<td>
+        <div class="api-entry" id="api-suggestion-name"><code>name</code></div>
+
+        <p>Type: string</p>
+      </td>
+<td>
+        <p>Display name of the place found.</p>
+
+        <p>Examples:</p>
+
+        <ul>
+          <li>Paris</li>
+          <li>589 Howard Street San Francisco</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+<td>
+        <div class="api-entry" id="api-suggestion-postcode"><code>postcode</code></div>
+
+        <p>Type: string</p>
+      </td>
+<td>
+        <p>Postcode (or ZIP Code) of the place found.</p>
+
+        <p>Examples:</p>
+
+        <ul>
+          <li>94230</li>
+          <li>1001</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+<td>
+        <div class="api-entry" id="api-suggestion-value"><code>value</code></div>
+
+        <p>Type: string</p>
+      </td>
+<td>
+        <p>Full display name of the place found. It's the value displayed in the input.</p>
+
+        <p>Examples:</p>
+
+        <ul>
+          <li>Paris Île-de-France, France</li>
+          <li>589 Howard Street San Francisco, California, United States of America</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="styling">Styling</h2>
+
+<p>Algolia Places can fit existing designs. By default only the dropdown has a default light style.</p>
+
+<h3 id="html-structure">HTML structure</h3>
+
+<p>The overall html structure looks like this:</p>
+
+<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5</pre></td><td class="code"><pre><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"algolia-places"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"ap-input"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"ap-input-icon ap-input-icon-clear"</span><span class="nt">&gt;&lt;svg&gt;&lt;/svg&gt;&lt;/button&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"ap-input-icon ap-input-icon-pin"</span><span class="nt">&gt;&lt;svg&gt;&lt;/svg&gt;&lt;/button&gt;</span>
+<span class="nt">&lt;/span&gt;</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>Then the dropdown html structure looks like this:</p>
+
+<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre></td><td class="code"><pre><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"ap-dropdown-menu"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"ap-suggestions"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ap-suggestion"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"ap-suggestion-icon"</span><span class="nt">&gt;&lt;svg&gt;&lt;/svg&gt;&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"ap-name"</span><span class="nt">&gt;&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"ap-address"</span><span class="nt">&gt;&lt;/span&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="c">&lt;!-- Other suggestions --&gt;</span>
+    <span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/span&gt;</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<h3 id="css-classes">CSS classes</h3>
+
+<p>Here's a visual explanation of the different CSS classes:</p>
+
+<div class="preview-holder no-mobile">
+  <img alt="preview-places" id="visual-helper" src="/images/visual-preview-places.png" />
+  <div class="overlay">
+    <div class="ov-input" data-mention=".ap-input"></div>
+    <div class="ov-cancel" data-mention=".ap-input-icon-[clear/pin]"></div>
+    <div class="ov-suggestions" data-mention=".ap-dropdown-menu">
+      <div class="ov-suggestion-cursor" data-mention=".ap-suggestion.ap-cursor"></div>
+      <div class="ov-suggestion" data-mention=".ap-suggestion">
+        <div class="ov-icon" data-mention=".ap-suggestion-icon"></div>
+        <div class="ov-name" data-mention=".ap-name"></div>
+        <div class="ov-highlight" data-mention="&lt;em&gt;"></div>
+        <div class="ov-address" data-mention=".ap-address"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="preview-holder display-on-small">
+  <img alt="preview-places" id="visual-helper" src="/images/visual-preview-places_mobile.png" />
+</div>
+<table class="api">
+  <thead>
+    <tr>
+      <th>CSS Class</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <div class="css-class api-entry" id="css-class-ap-input">
+          <code>.ap-input</code>
+        </div>
+      </td>
+      <td>
+        <p>This class is the one use by the main places input</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="css-class api-entry" id="css-class-ap-input-icon-pin">
+          <code>.ap-input-icon-pin</code>
+        </div>
+      </td>
+      <td>
+        <p>This is the class attached to the pin icon, which is visible when the input is on it's normal state</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="css-class api-entry" id="css-class-ap-input-icon-clear">
+          <code>.ap-input-icon-clear</code>
+        </div>
+      </td>
+      <td>
+        <p>This is the class attached to the clear icon, which is visible when the input is filled, clicking it will empty the input</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="css-class api-entry" id="css-class-ap-dropdown-menu">
+          <code>.ap-dropdown-menu</code>
+        </div>
+      </td>
+      <td>
+        <p>This class is the one that is on the whole suggestions wrapper</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="css-class api-entry" id="css-class-ap-suggestion">
+          <code>.ap-suggestion</code>
+        </div>
+      </td>
+      <td>
+        <p>The .ap-suggestion class is the class of each dropdown suggestions</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="css-class api-entry" id="css-class-ap-cursor">
+          <code>.ap-cursor</code>
+        </div>
+      </td>
+      <td>
+        <p>The .ap-cursor class is added to .ap-suggestion when the suggestion is hovered</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="css-class api-entry" id="css-class-ap-suggestion-icon">
+          <code>.ap-suggestion-icon</code>
+        </div>
+      </td>
+      <td>
+        <p>The .ap-suggestion-icon is the class that is used on the left icon of each suggestions</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="css-class api-entry" id="css-class-ap-name">
+          <code>.ap-name</code>
+        </div>
+      </td>
+      <td>
+        <p>The .ap-name class is the one used on the <strong>name</strong> of the place</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="css-class api-entry" id="css-class-ap-address">
+          <code>.ap-address</code>
+        </div>
+      </td>
+      <td>
+        <p>The .ap-address class is the one used on the <strong>address</strong> of the place</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="css-class api-entry" id="css-class-em">
+          <code> &lt;em&gt;</code>
+        </div>
+      </td>
+      <td>
+        <p>The &lt;em&gt; tag in the .ap-suggestion is the tag that is used to make an highlight on each names</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Here's a default empty CSS file you can copy paste to tune the default styling:</p>
+
+<div class="codehilite css"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52</pre></td><td class="code"><pre><span class="c">/* Main input wrapper */</span>
+<span class="nc">.algolia-places</span> <span class="p">{}</span>
+
+<span class="c">/* The algolia-places input */</span>
+<span class="nc">.algolia-places</span> <span class="nc">.ap-input</span><span class="o">,</span> <span class="nc">.algolia-places</span> <span class="nc">.ap-hint</span> <span class="p">{}</span>
+
+<span class="c">/* The style of the svg icons when the input is on hover */</span>
+<span class="nc">.algolia-places</span> <span class="nc">.ap-input</span><span class="nd">:hover</span> <span class="o">~</span> <span class="nc">.ap-input-icon</span> <span class="nt">svg</span><span class="o">,</span>
+<span class="nc">.algolia-places</span> <span class="nc">.ap-input</span><span class="nd">:focus</span> <span class="o">~</span> <span class="nc">.ap-input-icon</span> <span class="nt">svg</span><span class="o">,</span>
+<span class="nc">.algolia-places</span> <span class="nc">.ap-input-icon</span><span class="nd">:hover</span> <span class="nt">svg</span> <span class="p">{}</span>
+
+<span class="c">/* The dropdown style */</span>
+<span class="nc">.algolia-places</span> <span class="nc">.ap-dropdown-menu</span> <span class="p">{}</span>
+
+<span class="c">/* The suggestions style */</span>
+<span class="nc">.algolia-places</span> <span class="nc">.ap-suggestion</span> <span class="p">{}</span>
+
+<span class="c">/* The highlighted names style */</span>
+<span class="nc">.algolia-places</span> <span class="nc">.ap-suggestion</span> <span class="nt">em</span> <span class="p">{}</span>
+
+<span class="c">/* The addresses style */</span>
+<span class="nc">.algolia-places</span> <span class="nc">.ap-address</span> <span class="p">{}</span>
+
+<span class="c">/* The icons of each suggestions ( can be a building or a pin ) */</span>
+<span class="nc">.algolia-places</span> <span class="nc">.ap-suggestion-icon</span> <span class="p">{}</span>
+
+<span class="c">/* The style of the svg inside the .ap-suggestion-icon */</span>
+<span class="nc">.algolia-places</span> <span class="nc">.ap-suggestion-icon</span> <span class="nt">svg</span> <span class="p">{}</span>
+
+<span class="c">/* The icons inside the input ( can be a pin or a cross ) */</span>
+<span class="nc">.algolia-places</span> <span class="nc">.ap-input-icon</span> <span class="p">{}</span>
+
+<span class="c">/* The style of the svg inside the .ap-input-icon */</span>
+<span class="nc">.algolia-places</span> <span class="nc">.ap-input-icon</span> <span class="nt">svg</span> <span class="p">{}</span>
+
+<span class="c">/* .a-cursor is the class a suggestion go on hover */</span>
+<span class="nc">.algolia-places</span> <span class="nc">.ap-cursor</span> <span class="p">{}</span>
+
+<span class="c">/* The style of the svg icon, when the .ap-suggestion is on hover */</span>
+<span class="nc">.algolia-places</span> <span class="nc">.ap-cursor</span> <span class="nc">.ap-suggestion-icon</span> <span class="nt">svg</span> <span class="p">{}</span>
+
+<span class="c">/* The styles of the Algolia Places input footer */</span>
+<span class="nc">.algolia-places</span> <span class="nc">.ap-footer</span> <span class="p">{}</span>
+
+<span class="c">/* The styles of the Algolia Places input footer links */</span>
+<span class="nc">.algolia-places</span> <span class="nc">.ap-footer</span> <span class="nt">a</span> <span class="p">{}</span>
+
+<span class="c">/* The styles of the Algolia Places input footer svg icons */</span>
+<span class="nc">.algolia-places</span> <span class="nc">.ap-footer</span> <span class="nt">a</span> <span class="nt">svg</span> <span class="p">{}</span>
+
+<span class="c">/* The styles of the Algolia Places input footer on hover */</span>
+<span class="nc">.algolia-places</span> <span class="nc">.ap-footer</span><span class="nd">:hover</span> <span class="p">{}</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<h3 id="disabling-default-style">Disabling default style</h3>
+
+<p>By default we insert some styling into your page.</p>
+
+<p>You can disable all the Algolia Places styling by passing the <code>style: false</code> option.</p>
+
+<p>Once you do so, the default <code>algolia-places</code> class name will turn into <code>algolia-places-nostyle</code>.</p>
+
+<p>See our <a href="./examples.html#input-styling">styling examples</a>.</p>
+
+<h2 id="rate-limits">Rate limits</h2>
+
+<p>Algolia Places enforces a default limit of <strong>1,000 requests per hour and per IP</strong> for free usage. You can contact us by <a href="mailto:support@algolia.com">e-mail</a> if you need more.</p>
+
+<h2 id="license">License</h2>
+
+<p>Algolia Places <a href="https://github.com/algolia/places/blob/master/LICENSE">is licensed</a> under <a href="https://en.wikipedia.org/wiki/MIT_License">MIT</a>.</p>
+
+<p>Address data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors.</p>
+
+<h2 id="examples">Examples</h2>
+
+<p>Have a look at our <a href="../examples.html">examples page</a>.</p>
